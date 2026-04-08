@@ -1,6 +1,7 @@
 Credential-Access-Attacks
 Threat hunting procedures for the MITRE ATT&amp;CK Tactic of Credential Access with Threat Hypothesis, Risk, visualizations, detections, hunting queries, and validation testing.
 
+<img width="1442" height="839" alt="image" src="https://github.com/user-attachments/assets/bfeeef96-e261-463a-812b-5dd1e0b1241e" />
 
 
 Risk:
@@ -36,8 +37,7 @@ Threat Hunting Process:
 
   7. Use the CrowdStrike Query Builder to look for artifacts of LLMNR poisioning tools Impacket, Responder and Inveigh
 
-     <img width="1694" height="472" alt="image" src="https://github.com/user-attachments/assets/5ce2bb47-fbd2-4c37-a793-08bd7ba2747a" />
-
+  <img width="1531" height="512" alt="image" src="https://github.com/user-attachments/assets/9aae5792-74b3-4e10-98ff-7350ee3a9e6a" />
 
   9. Vendor Agnostic Hunting Query
       (Event ID = 4697 OR Event ID = 7045) AND (Destination Port 5355 OR Destination Port 137 OR Multicast 224.0.0.252) AND Registry Hive Mod HKLM\Software\Policies\Microsoft\Windows NT\DNSClient\EnableMulticast
