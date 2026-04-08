@@ -12,9 +12,9 @@ Summary:
 By responding to LLMNR/NBT-NS network traffic, adversaries may spoof an authoritative source for name resolution to force communication with an adversary controlled system. This activity may be used to collect or relay authentication materials.
 
 
-Threat Hunting Process
+Threat Hunting Process:
 
-	1. Search for event ID 7045 which is a Windows System Log entry generated when a new service is installed on a local machine.
+  1. Search for event ID 7045 which is a Windows System Log entry generated when a new service is installed on a local machine.
 
   2. Search for event id 4697 which is a Windows Security Log event for when a service is installed on the system.
    
@@ -25,7 +25,31 @@ Threat Hunting Process
      "NOTE" The EnableMulticast registry key (HKLM\Software\Policies\Microsoft\Windows NT\DNSClient) is often missing because it is not created by default; it is only present if a Group Policy (GPO) has  specifically enabled or disabled LLMNR/Multicast DNS.
 
   5. Any modifications made to this registry key outside of normal change windows would be considered suspicious as adversary can change the setting in order to run the LLMNR poisoning.
+  
+  6. If you have CrowdStrike Falcon a catch all query can be run using the following query:
+     1 #event_simpleName="ProcessRollup2"
+     2 event_platform="Win"
+     3 | Technique = "Adversary-in-the-Middle"
 
+  7. Use the CrowdStrike Query Builder to look for artifacts of LLMNR poisioning tools Impacket, Responder and Inveigh
+
+     <img width="1694" height="472" alt="image" src="https://github.com/user-attachments/assets/5ce2bb47-fbd2-4c37-a793-08bd7ba2747a" />
+
+
+  9. Vendor Agnostic Hunting Query
+      (Event ID = 4697 OR Event ID = 7045) AND (Destination Port 5355 OR Destination Port 137 OR Multicast 224.0.0.252) AND Registry Hive Mod HKLM\Software\Policies\Microsoft\Windows NT\DNSClient\EnableMulticast
+
+ 10. Post execution of the LLMNR poisoning the PCAP will display the attacker IP making LLMNR connections to the victim IP and Multicast IP 224.0.0.25 and Destination port 5355.
+
+     <img width="1571" height="916" alt="image" src="https://github.com/user-attachments/assets/c36be0ce-6fd6-4b73-8ed1-cb7dd4602f5a" />
+
+ 11. Validate your detection queries.
+
+     https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1557.001/T1557.001.md
+
+     <img width="1013" height="477" alt="image" src="https://github.com/user-attachments/assets/4c0e0cdc-fde0-4303-a661-e0339b5e1124" />
+
+     	 
 
 
 
