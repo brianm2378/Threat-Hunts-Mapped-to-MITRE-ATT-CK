@@ -31,6 +31,7 @@ Threat Hunting Process:
   5. Any modifications made to this registry key outside of normal change windows would be considered suspicious as adversary can change the setting in order to run the LLMNR poisoning.
   
   6. If you have CrowdStrike Falcon a catch all query can be run using the following query:
+     
      1 #event_simpleName="ProcessRollup2"
      2 event_platform="Win"
      3 | Technique = "Adversary-in-the-Middle"
@@ -39,31 +40,32 @@ Threat Hunting Process:
 
   <img width="1531" height="512" alt="image" src="https://github.com/user-attachments/assets/9aae5792-74b3-4e10-98ff-7350ee3a9e6a" />
 
-  9. Vendor Agnostic Hunting Query
+  8. Vendor Agnostic Hunting Query
       (Event ID = 4697 OR Event ID = 7045) AND (Destination Port 5355 OR Destination Port 137 OR Multicast 224.0.0.252) AND Registry Hive Mod HKLM\Software\Policies\Microsoft\Windows NT\DNSClient\EnableMulticast
 
- 10. Post execution of the LLMNR poisoning the PCAP will display the attacker IP making LLMNR connections to the victim IP and Multicast IP 224.0.0.25 and Destination port 5355.
+  9. Post execution of the LLMNR poisoning the PCAP will display the attacker IP making LLMNR connections to the victim IP and Multicast IP 224.0.0.25 and Destination port 5355.
 
      <img width="1571" height="916" alt="image" src="https://github.com/user-attachments/assets/c36be0ce-6fd6-4b73-8ed1-cb7dd4602f5a" />
 
- 11. Validate your detection queries.
+ 10. Validate your detection queries.
 
 Disclaimer:  
 This material is provided solely for testing and educational purposes. Do not perform any form of penetration testing, security scanning, or system exploitation without explicit, written authorization from the system owner. Unauthorized testing is illegal and unethical.
 
      https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1557.001/T1557.001.md
 
-     <img width="1013" height="477" alt="image" src="https://github.com/user-attachments/assets/4c0e0cdc-fde0-4303-a661-e0339b5e1124" />
+     <img width="1013" height="477" alt="image" src="https://github.com/user-attachments/assets/147ceda2-ccd1-4bd3-86d8-73ecac329a74" />
 
-13. To reproduce the attack scenario using Responder open a Kali instance then open a terminal in sudo.
 
-14. In the terminal type sudo responder -I eth0 -v
+11. To reproduce the attack scenario using Responder open a Kali instance then open a terminal in sudo.
 
-15. On the target windows system attempt to map to a non-existent file share.
+12. In the terminal type sudo responder -I eth0 -v
 
-16. Collect the NTLMv2 hash to crack offline
+13. On the target windows system attempt to map to a non-existent file share.
 
-17. Extract the entire hash value and save it to hash.txt
+14. Collect the NTLMv2 hash to crack offline
+
+15. Extract the entire hash value and save it to hash.txt
 
 19. Execute John the Ripper "john --form=md5--wordlist=/usr/share/wordlists/rockyou.txt hash.txt"
 
