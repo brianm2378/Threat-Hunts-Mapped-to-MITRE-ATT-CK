@@ -48,7 +48,25 @@ Threat Hunting Process:
 
  11. Validate your detection queries.
 
+Disclaimer:  
+This material is provided solely for testing and educational purposes. Do not perform any form of penetration testing, security scanning, or system exploitation without explicit, written authorization from the system owner. Unauthorized testing is illegal and unethical.
+
      https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1557.001/T1557.001.md
 
      <img width="1013" height="477" alt="image" src="https://github.com/user-attachments/assets/4c0e0cdc-fde0-4303-a661-e0339b5e1124" />
 
+13. To reproduce the attack scenario using Responder open a Kali instance then open a terminal in sudo.
+
+14. In the terminal type sudo responder -I eth0 -v
+
+15. On the target windows system attempt to map to a non-existent file share.
+
+16. Collect the NTLMv2 hash to crack offline
+
+17. Extract the entire hash value and save it to hash.txt
+
+19. Execute John the Ripper "john --form=md5--wordlist=/usr/share/wordlists/rockyou.txt hash.txt"
+
+20. Confirm using Wireshark on Target system.
+
+    <img width="1571" height="916" alt="image" src="https://github.com/user-attachments/assets/c36be0ce-6fd6-4b73-8ed1-cb7dd4602f5a" />
