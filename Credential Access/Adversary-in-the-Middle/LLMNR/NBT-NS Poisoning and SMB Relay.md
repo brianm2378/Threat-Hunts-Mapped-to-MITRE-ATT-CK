@@ -1,5 +1,5 @@
-Credential-Access-Attacks
-Threat hunting procedures for the MITRE ATT&amp;CK Tactic of Credential Access with Threat Hypothesis, Risk, visualizations, detections, hunting queries, and validation testing.
+Credential Access: Adversary-in-the-Middle: LLMNR/NBT-NS Poisoning and SMB Relay
+https://attack.mitre.org/techniques/T1557/001/
 
 <img width="1442" height="839" alt="image" src="https://github.com/user-attachments/assets/bfeeef96-e261-463a-812b-5dd1e0b1241e" />
 
